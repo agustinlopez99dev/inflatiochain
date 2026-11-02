@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -30,6 +31,7 @@ public class PrewarmJob {
 	private final Sleeper sleeper;
 	private Instant coolDownUntil = Instant.MIN;
 
+	@Autowired
 	public PrewarmJob(CoinService service, PrewarmProperties props, Clock clock) {
 		this(service, props, clock, d -> Thread.sleep(d));
 	}
