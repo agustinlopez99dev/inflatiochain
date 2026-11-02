@@ -22,7 +22,9 @@ async function load(id) {
 	}
 	if (res.status === 404) return show(`Coin '${id}' not found.`);
 	if (res.status === 429) return show(`Too many requests, retry in ${res.headers.get("Retry-After") || "a few"} seconds.`);
-	if (!res.ok) return show("CoinGecko is unavailable, try again shortly.");
+	if (res.status === 503) return show("CoinGecko's free rate limit was reached. Wait about a minute and try again.");
+	if (res.status === 502) return show("CoinGecko is unavailable, try again shortly.");
+	if (!res.ok) return show(`Unexpected error (HTTP ${res.status}).`);
 	render(await res.json());
 }
 

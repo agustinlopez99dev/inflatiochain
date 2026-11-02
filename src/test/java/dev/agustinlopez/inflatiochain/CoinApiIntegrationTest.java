@@ -2,6 +2,7 @@ package dev.agustinlopez.inflatiochain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -132,8 +133,17 @@ class CoinApiIntegrationTest {
 	}
 
 	@Test
-	void upstreamFailureWithoutStaleCopyIs502() throws Exception {
+	void upstreamRateLimitWithoutStaleCopyIs503WithRetryAfter() throws Exception {
 		forcedStatus = 429;
+
+		mvc.perform(get("/api/v1/coin/bitcoin"))
+				.andExpect(status().isServiceUnavailable())
+				.andExpect(header().exists("Retry-After"));
+	}
+
+	@Test
+	void otherUpstreamFailureWithoutStaleCopyIs502() throws Exception {
+		forcedStatus = 500;
 
 		mvc.perform(get("/api/v1/coin/bitcoin")).andExpect(status().isBadGateway());
 	}

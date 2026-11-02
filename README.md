@@ -28,7 +28,7 @@ Java 21 · Spring Boot 4 · Maven · Caffeine · Bucket4j · `RestClient` · spr
 | GET | `/api/v1/coins/list` | Top coins by market cap (`id`, `name`, `symbol`, `image`, `market_cap_rank`) | 1 day |
 | GET | `/api/v1/coin/{coinId}` | Market data, price changes, ATH and supply inflation | 5 min per coin |
 
-Errors use RFC 9457 `ProblemDetail`: `400` malformed id, `404` unknown coin, `429` you exceeded our rate limit (with `Retry-After`), `502` CoinGecko unavailable or rate limited and no stale copy exists.
+Errors use RFC 9457 `ProblemDetail`: `400` malformed id, `404` unknown coin, `429` you exceeded our rate limit (with `Retry-After`), `503` (with `Retry-After`) CoinGecko's rate limit was hit and no stale copy exists, `502` CoinGecko failed in any other way and no stale copy exists.
 
 The `/coin/{coinId}` JSON keeps the same snake_case contract as the Python version. Fields CoinGecko does not provide (e.g. no history) are `null` instead of failing the request.
 
@@ -59,7 +59,7 @@ See [application.properties](src/main/resources/application.properties). Notable
 | `inflatiochain.cache.summary-max-size` | `500` | Max cached coin summaries |
 | `inflatiochain.cache.coin-list-ttl` | `1d` | TTL of the coin list |
 | `inflatiochain.cache.stale-ttl` | `7d` | How long last-known-good copies are kept |
-| `inflatiochain.prewarm.enabled` / `top-n` / `throttle` / `cooldown` | `true` / `15` / `15s` / `2m` | Background refresh of the top coins |
+| `inflatiochain.prewarm.enabled` / `top-n` / `throttle` / `cooldown` | `true` / `5` / `15s` / `2m` | Background refresh of the top coins |
 | `inflatiochain.rate-limit.requests-per-minute` | `60` | Per-IP limit on `/api/**` |
 | `inflatiochain.rate-limit.trust-forwarded-for` | `false` | Use `X-Forwarded-For` as client IP |
 
