@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>InflatioChain</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<main>
+		<h1>InflatioChain</h1>
+		<p class="sub">How much has a coin's circulating supply grown in the last year?</p>
+
+		<label for="coin">Coin</label>
+		<input id="coin" list="coins" placeholder="e.g. bitcoin" autocomplete="off">
+		<datalist id="coins"></datalist>
+
+		<p id="message" role="status"></p>
+
+		<section id="card" hidden>
+			<header>
+				<img id="logo" alt="">
+				<div>
+					<h2 id="name"></h2>
+					<span id="price"></span> · <span id="cap"></span>
+				</div>
+			</header>
+			<div class="inflation">
+				<span class="label">Supply inflation</span>
+				<strong id="inflation"></strong>
+			</div>
+			<dl>
+				<dt>Circulating supply</dt><dd id="supply"></dd>
+				<dt>Supply ~<span id="window"></span> days ago</dt><dd id="old-supply"></dd>
+			</dl>
+			<p class="badges">
+				<span id="estimated" class="badge" hidden>Estimated: market cap / price</span>
+				<span id="stale" class="badge warn" hidden>Stale: CoinGecko unavailable</span>
+			</p>
+			<p class="updated">Updated <span id="updated"></span></p>
+		</section>
+	</main>
+	<script src="app.js"></script>
+</body>
+</html>

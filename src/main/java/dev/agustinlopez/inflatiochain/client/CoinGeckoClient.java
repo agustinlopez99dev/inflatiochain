@@ -55,7 +55,7 @@ public class CoinGeckoClient {
 				throw new CoinNotFoundException(coinId);
 			}
 			if (e.getStatusCode().isSameCodeAs(HttpStatus.TOO_MANY_REQUESTS)) {
-				throw new UpstreamException("CoinGecko rate limit reached, try again in a minute", e);
+				throw new UpstreamException("CoinGecko rate limit reached, try again in a minute", e, true);
 			}
 			throw new UpstreamException("CoinGecko responded with status " + e.getStatusCode().value(), e);
 		}

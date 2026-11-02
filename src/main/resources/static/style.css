@@ -1,0 +1,24 @@
+:root { --bg: #f6f7f9; --fg: #1b1f24; --card: #fff; --muted: #667085; --accent: #d9480f; --border: #e2e5ea; }
+@media (prefers-color-scheme: dark) {
+	:root { --bg: #14171c; --fg: #e8eaee; --card: #1d2229; --muted: #9aa3b0; --accent: #ff8a5c; --border: #2d343d; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, sans-serif; }
+main { max-width: 560px; margin: 0 auto; padding: 32px 16px; }
+h1 { margin: 0; }
+.sub { color: var(--muted); margin-top: 4px; }
+label { display: block; margin-top: 24px; font-weight: 600; }
+input { width: 100%; padding: 10px 12px; margin-top: 6px; font: inherit; color: inherit; background: var(--card); border: 1px solid var(--border); border-radius: 8px; }
+#message { color: var(--muted); min-height: 1.5em; }
+#card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+#card header { display: flex; gap: 12px; align-items: center; }
+#card img { width: 40px; height: 40px; }
+#card h2 { margin: 0; font-size: 1.2rem; }
+.inflation { margin: 20px 0; }
+.inflation .label { display: block; color: var(--muted); font-size: .85rem; }
+.inflation strong { font-size: 2.2rem; color: var(--accent); }
+dl { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; margin: 0; }
+dt { color: var(--muted); } dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: .8rem; background: var(--border); }
+.badge.warn { background: #fde8c8; color: #7a4a00; }
+.updated { color: var(--muted); font-size: .85rem; margin-bottom: 0; }

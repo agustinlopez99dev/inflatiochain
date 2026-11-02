@@ -8,5 +8,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public record CacheProperties(
 		Duration summaryTtl,
 		long summaryMaxSize,
-		Duration coinListTtl) {
+		Duration coinListTtl,
+		Duration staleTtl) {
 }

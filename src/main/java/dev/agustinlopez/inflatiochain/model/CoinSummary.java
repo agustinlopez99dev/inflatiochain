@@ -38,6 +38,25 @@ public record CoinSummary(
 		@JsonProperty("circulating_emission_percentage") Double circulatingEmissionPercentage,
 		@JsonProperty("historical_note") String historicalNote,
 
+		/** True when old supply was derived as market_cap / price rather than read directly. */
+		@JsonProperty("supply_estimated") boolean supplyEstimated,
+		/** Real days of history behind the old_* values; null without history. */
+		@JsonProperty("window_days") Long windowDays,
+		/** True when served from the last-known-good cache because CoinGecko failed. */
+		boolean stale,
+
 		/** Epoch seconds when this summary was built (i.e. how old the cached data is). */
 		@JsonProperty("last_updated") long lastUpdated) {
+
+	public CoinSummary asStale() {
+		return new CoinSummary(id, name, symbol, price, marketCap, marketCapRank,
+				circulatingSupply, maxSupply, maxSupplyIsInfinity,
+				ath, athChangePercentage, athDate,
+				priceChangePercentage24h, priceChangePercentage7d, priceChangePercentage14d,
+				priceChangePercentage30d, priceChangePercentage60d, priceChangePercentage1y,
+				imageThumb, imageSmall, imageLarge,
+				oldPrice, oldMarketCap, oldCirculatingSupply, daysSinceOldData,
+				circulatingEmissionPercentage, historicalNote,
+				supplyEstimated, windowDays, true, lastUpdated);
+	}
 }
